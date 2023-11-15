@@ -86,6 +86,21 @@
             text-decoration: underline;
         }
 
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .fade-in {
+                animation: fadeIn 0.5s ease-out;
+            }
+
         @media only screen and (max-width: 600px) {
             .modal-content {
                 max-width: 90%;
@@ -167,11 +182,11 @@
      <div class="modal-overlay" id="modalOverlay"></div>
 
     <!-- Modal for Login -->
-    <div id="loginModal" class="modal py-5">
+    <div id="loginModal" class="modal py-5 ">
         <div class="modal-content">
             <span class="close" onclick="closeLoginModal()">&times;</span>
             <h2>Login</h2>
-            <form onsubmit="submitLogin(); return false;">
+            <form onsubmit="submitRegister(); return false;" action="" method="POST" class="fade-in">
                 <label for="username" class="mt-1"><i class="fa fa-user" style="font-size:20px; margin-right: 5px;"></i></i>Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -189,7 +204,7 @@
         <div class="modal-content-1">
             <span class="close" onclick="closeRegisterModal()">&times;</span>
             <h2>Register</h2><hr>
-            <form onsubmit="submitRegister(); return false;" action="form.php" method="GET">
+            <form onsubmit="submitRegister(); return false;" action="" method="POST" class="fade-in">
 
 
                 <label for="photo" class="mt-2"><i class="fa fa-photo" style="font-size:16px; margin-right: 5px;"></i>Profile photo:</label>
