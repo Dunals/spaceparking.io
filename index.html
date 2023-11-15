@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +27,18 @@
             position: relative;
             z-index: 1000;
         }
+        .modal-content-1 {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            margin: 0 auto;
+            height: 750px;
+            position: relative;
+            z-index: 1000;
+        }
+
         .close {
             position: absolute;
             top: 10px;
@@ -74,21 +87,6 @@
             text-decoration: underline;
         }
 
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-5px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .fade-in {
-                animation: fadeIn 0.3s ease-out;
-            }
-
         @media only screen and (max-width: 600px) {
             .modal-content {
                 max-width: 90%;
@@ -105,7 +103,7 @@
             left: 0;
             width: 100%;
             height: 200%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 999;
             display: none;
         }
@@ -170,11 +168,11 @@
      <div class="modal-overlay" id="modalOverlay"></div>
 
     <!-- Modal for Login -->
-    <div id="loginModal" class="modal py-5 ">
+    <div id="loginModal" class="modal py-5">
         <div class="modal-content">
             <span class="close" onclick="closeLoginModal()">&times;</span>
             <h2>Login</h2>
-            <form onsubmit="submitRegister(); return false;" action="" method="POST" class="fade-in">
+            <form onsubmit="submitLogin(); return false;">
                 <label for="username" class="mt-1"><i class="fa fa-user" style="font-size:20px; margin-right: 5px;"></i></i>Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -183,11 +181,43 @@
 
                 <button type="submit" class="mt-3 mb-2" style="background-color: #f55858;">Login</button>
             </form>
-            <p>Not a member? <a href="login/index.php">Sign Up</a></p>
+            <p>Not a member? <a href="javascript:void(0);" onclick="closeLoginModal(); openRegisterModal();">Sign Up</a></p>
         </div>
     </div>
 
-  
+    <!-- Modal for Register -->
+    <div id="registerModal" class="modal py-2">
+        <div class="modal-content-1">
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
+            <h2>Register</h2><hr>
+            <form onsubmit="submitRegister(); return false;" action="form.php" method="GET">
+
+
+                <label for="photo" class="mt-2"><i class="fa fa-photo" style="font-size:16px; margin-right: 5px;"></i>Profile photo:</label>
+                <input type="file" id="photo" name="photo" required>
+
+                <label for="fullname" class="mt-2"><i class="fa fa-id-card" style="font-size:16px; margin-right: 5px;"></i>Full Name:</label>
+                <input type="text" id="fullname" name="fullname" required>
+
+                <label for="Username" class="mt-2"><i class="fa fa-user" style="font-size:20px; margin-right: 5px;"></i>User Name:</label>
+                <input type="text" id="Username" name="Username" required>
+
+                <label for="email" class="mt-2"><i class="fa" style="font-size:16px; margin-right: 5px;">&#xf0e0;</i>Email:</label>
+                <input type="email" id="email" name="email" required>
+ 
+                <label for="Password" class="mt-2"><i class="fa fa-lock" style="font-size:20px; margin-right: 5px;"></i>Password:</label>
+                <input type="text" id="password" name="password" required>
+
+ 
+                 <label for="Contactnumber" class="mt-2"><i class="fa fa-phone" style="font-size:16px; margin-right: 5px;"></i>Contact Number:</label>
+                <input type="Number" id="Contactnumber" name="Contactnumber" required>
+
+                <button type="submit" class="mt-3 mb-2" style="background-color: #f55858;">Register</button>
+            </form>
+            <p class="mt-3">Already a member? <a href="javascript:void(0);" onclick="closeRegisterModal(); openLoginModal();">Login</a></p>
+        </div>
+    </div>
+
 
 
     <section class="section" id="about" style="margin-top: -80px;">
@@ -532,7 +562,38 @@
         }
 
 
-    
+        // Validate  form
+        function validateRegistrationForm() {
+            var fullname = document.getElementById("fullname").value;
+            var username = document.getElementById("Username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("Password").value;
+            var contactNumber = document.getElementById("Contactnumber").value;
+
+            if (fullname.trim() === "" || username.trim() === "" || email.trim() === "" || password.trim() === "" || contactNumber.trim() === "") {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Invalid email address");
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long");
+                return false;
+            }
+
+            if (isNaN(contactNumber)) {
+                alert("Contact number must be a number");
+                return false;
+            }
+
+            return true;
+        }
+
 </script>
 
 <script src="home/assets/js/jquery-2.1.0.min.js"></script>
